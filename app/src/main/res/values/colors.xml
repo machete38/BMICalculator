@@ -1,0 +1,40 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!-- Основные цвета приложения -->
+    <color name="primary">#2196F3</color>
+    <color name="primary_dark">#1976D2</color>
+    <color name="primary_light">#BBDEFB</color>
+    <color name="accent">#FF4081</color>
+    <color name="primary_text">#212121</color>
+    <color name="secondary_text">#757575</color>
+    <color name="icons">#FFFFFF</color>
+    <color name="divider">#BDBDBD</color>
+
+    <!-- Цвета для категорий BMI -->
+    <color name="underweight">#64B5F6</color>  <!-- Голубой -->
+    <color name="normal">#81C784</color>       <!-- Зеленый -->
+    <color name="overweight">#FFD54F</color>   <!-- Желтый -->
+    <color name="obese">#E57373</color>        <!-- Красный -->
+
+    <!-- Цвета для фона -->
+    <color name="background_light">#FAFAFA</color>
+    <color name="background_dark">#303030</color>
+
+    <!-- Дополнительные цвета -->
+    <color name="white">#FFFFFF</color>
+    <color name="black">#000000</color>
+    <color name="transparent">#00000000</color>
+
+    <!-- Цвета для кнопок -->
+    <color name="button_enabled">#2196F3</color>
+    <color name="button_disabled">#BDBDBD</color>
+    <color name="button_pressed">#1976D2</color>
+
+    <!-- Цвета для текста -->
+    <color name="text_light">#FFFFFF</color>
+    <color name="text_dark">#212121</color>
+    <color name="text_hint">#9E9E9E</color>
+
+    <!-- Цвет по умолчанию (если категория не определена) -->
+    <color name="default_color">#9E9E9E</color>  <!-- Серый -->
+</resources>
