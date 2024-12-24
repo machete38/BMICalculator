@@ -1,9 +1,12 @@
 package com.example.bmicalculator
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.transition.TransitionManager
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
+import androidx.constraintlayout.widget.ConstraintLayout
+import androidx.constraintlayout.widget.ConstraintSet
 import androidx.core.content.ContextCompat
 import com.google.android.material.slider.Slider
 
@@ -44,6 +47,7 @@ class MainActivity : AppCompatActivity() {
     }
 
     private fun calculateBMI() {
+        animateLayout()
         val weight = weightEditText.text.toString().toDoubleOrNull()
         val height = heightEditText.text.toString().toDoubleOrNull()
 
@@ -63,8 +67,10 @@ class MainActivity : AppCompatActivity() {
         categoryTextView.text = "Категория: $category"
         healthRiskTextView.text = "Риск для здоровья: $healthRisk"
 
-        // Установка значения и цвета для слайдера BMI
-        bmiSlider.value = bmi.toFloat()
+        // Ограничиваем значение BMI для слайдера
+        val sliderValue = bmi.toFloat().coerceIn(10f, 40f)
+        bmiSlider.value = sliderValue
+
         val color = when (category) {
             BMICalculator.UNDERWEIGHT -> R.color.underweight
             BMICalculator.NORMAL -> R.color.normal
@@ -74,5 +80,17 @@ class MainActivity : AppCompatActivity() {
         }
         bmiSlider.trackActiveTintList = ContextCompat.getColorStateList(this, color)!!
         bmiSlider.thumbTintList = ContextCompat.getColorStateList(this, color)!!
+    }
+
+    private fun animateLayout() {
+        val constraintSet = ConstraintSet()
+        constraintSet.clone(findViewById<ConstraintLayout>(R.id.root_layout))
+
+        // Изменение позиции кнопки
+        constraintSet.setHorizontalBias(R.id.calculateButton, 0.3f)
+
+        // Анимация изменений
+        TransitionManager.beginDelayedTransition(findViewById(R.id.root_layout))
+        constraintSet.applyTo(findViewById(R.id.root_layout))
     }
 }

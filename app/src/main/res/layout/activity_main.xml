@@ -3,154 +3,148 @@
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
+    android:id="@+id/root_layout"
     android:layout_height="match_parent"
-    android:padding="16dp"
     tools:context=".MainActivity">
 
-    <TextView
-        android:id="@+id/titleTextView"
+    <!-- Guidelines -->
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_vertical"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="BMI Калькулятор"
-        android:textSize="24sp"
-        android:textStyle="bold"
+        android:orientation="vertical"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <androidx.constraintlayout.widget.Guideline
+        android:id="@+id/guideline_horizontal"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="horizontal"
+        app:layout_constraintGuide_percent="0.5" />
+
+    <!-- Input Fields (using chains) -->
+    <EditText
+        android:id="@+id/weightEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Вес (кг)"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical"
+        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toTopOf="@+id/heightEditText"
+        app:layout_constraintVertical_chainStyle="packed" />
+
+    <EditText
+        android:id="@+id/heightEditText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:hint="Рост (см)"
+        android:inputType="numberDecimal"
+        app:layout_constraintEnd_toStartOf="@+id/guideline_vertical"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/weightEditText"
+        app:layout_constraintBottom_toTopOf="@+id/guideline_horizontal" />
+
+    <!-- Calculate Button (using bias) -->
+    <Button
+        android:id="@+id/calculateButton"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Рассчитать BMI"
+        app:layout_constraintTop_toBottomOf="@+id/heightEditText"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.7" />
+
+    <!-- Results (using barriers) -->
+    <TextView
+        android:id="@+id/resultTextView"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textSize="18sp"
+        app:layout_constraintTop_toBottomOf="@+id/calculateButton"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/weightInputLayout"
+    <TextView
+        android:id="@+id/categoryTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/titleTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toStartOf="@id/heightInputLayout"
-        app:layout_constraintWidth_percent="0.45">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/weightEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Вес (кг)"
-            android:inputType="numberDecimal" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.textfield.TextInputLayout
-        android:id="@+id/heightInputLayout"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        app:layout_constraintTop_toTopOf="@id/weightInputLayout"
-        app:layout_constraintStart_toEndOf="@id/weightInputLayout"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintWidth_percent="0.45">
-
-        <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/heightEditText"
-            android:layout_width="match_parent"
-            android:layout_height="wrap_content"
-            android:hint="Рост (см)"
-            android:inputType="numberDecimal" />
-    </com.google.android.material.textfield.TextInputLayout>
-
-    <com.google.android.material.button.MaterialButton
-        android:id="@+id/calculateButton"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:text="Рассчитать BMI"
-        android:layout_marginTop="24dp"
-        app:layout_constraintTop_toBottomOf="@id/weightInputLayout"
+        android:textSize="16sp"
+        app:layout_constraintTop_toBottomOf="@+id/resultTextView"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
     <androidx.constraintlayout.widget.Barrier
-        android:id="@+id/inputBarrier"
+        android:id="@+id/barrier"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         app:barrierDirection="bottom"
-        app:constraint_referenced_ids="weightInputLayout,heightInputLayout,calculateButton" />
-
-    <TextView
-        android:id="@+id/resultTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        android:textSize="18sp"
-        app:layout_constraintTop_toBottomOf="@id/inputBarrier"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Ваш BMI: 22.5" />
-
-    <TextView
-        android:id="@+id/categoryTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="8dp"
-        android:textSize="16sp"
-        app:layout_constraintTop_toBottomOf="@id/resultTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Категория: Нормальный вес" />
-
-    <com.google.android.material.slider.Slider
-        android:id="@+id/bmiSlider"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
-        android:valueFrom="10"
-        android:valueTo="40"
-        app:layout_constraintTop_toBottomOf="@id/categoryTextView"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent" />
+        app:constraint_referenced_ids="resultTextView,categoryTextView" />
 
     <TextView
         android:id="@+id/healthRiskTextView"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:layout_marginTop="16dp"
         android:textSize="14sp"
-        app:layout_constraintTop_toBottomOf="@id/bmiSlider"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        tools:text="Риск для здоровья: Низкий риск развития заболеваний, связанных с весом." />
-
-    <androidx.constraintlayout.helper.widget.Flow
-        android:id="@+id/bmiCategoriesFlow"
-        android:layout_width="0dp"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="24dp"
-        app:flow_wrapMode="aligned"
-        app:flow_horizontalStyle="packed"
-        app:flow_horizontalAlign="center"
-        app:flow_verticalGap="8dp"
-        app:flow_horizontalGap="8dp"
-        app:constraint_referenced_ids="underweightChip,normalChip,overweightChip,obeseChip"
-        app:layout_constraintTop_toBottomOf="@id/healthRiskTextView"
+        app:layout_constraintTop_toBottomOf="@+id/barrier"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintEnd_toEndOf="parent" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/underweightChip"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Недостаточный вес" />
+    <!-- BMI Slider (using aspect ratio) -->
+    <com.google.android.material.slider.Slider
+        android:id="@+id/bmiSlider"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:valueFrom="10"
+        android:valueTo="40"
+        app:layout_constraintDimensionRatio="10:1"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintWidth_percent="0.8" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/normalChip"
-        android:layout_width="wrap_content"
+    <!-- BMI Scale (using chains and guidelines) -->
+    <TextView
+        android:id="@+id/underweightText"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Нормальный вес" />
+        android:text="Недостаточный"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/bmiSlider"
+        app:layout_constraintEnd_toStartOf="@+id/normalText"
+        app:layout_constraintHorizontal_chainStyle="spread_inside"
+        app:layout_constraintStart_toStartOf="parent" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/overweightChip"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/normalText"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Избыточный вес" />
+        android:text="Нормальный"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/bmiSlider"
+        app:layout_constraintEnd_toStartOf="@+id/overweightText"
+        app:layout_constraintStart_toEndOf="@+id/underweightText" />
 
-    <com.google.android.material.chip.Chip
-        android:id="@+id/obeseChip"
-        android:layout_width="wrap_content"
+    <TextView
+        android:id="@+id/overweightText"
+        android:layout_width="0dp"
         android:layout_height="wrap_content"
-        android:text="Ожирение" />
+        android:text="Избыточный"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/bmiSlider"
+        app:layout_constraintEnd_toStartOf="@+id/obeseText"
+        app:layout_constraintStart_toEndOf="@+id/normalText" />
+
+    <TextView
+        android:id="@+id/obeseText"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:text="Ожирение"
+        android:textAlignment="center"
+        app:layout_constraintBottom_toTopOf="@+id/bmiSlider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toEndOf="@+id/overweightText" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
